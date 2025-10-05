@@ -88,6 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebar: document.querySelector('.sidebar'), // Select the sidebar itself
         mobileMenuToggle: document.getElementById('mobile-menu-toggle'),
         menuOverlay: document.getElementById('menu-overlay'),
+        toggleLoginPassword: document.getElementById('toggle-login-password'),
+        toggleRegisterPassword: document.getElementById('toggle-register-password'),
     };
 
     const api = {
@@ -229,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         DOM.loginView.classList.toggle('hidden', view !== 'login');
         DOM.registerView.classList.toggle('hidden', view !== 'register');
     };
+    
 
     // ======== RENDER FUNCTIONS ========
     const renderReferralInfo = () => {
@@ -698,6 +701,18 @@ document.addEventListener('DOMContentLoaded', () => {
         hideModal(DOM.mandatorySubModal);
     };
 
+    const togglePasswordVisibility = (inputElement, iconElement) => {
+        if (inputElement.type === 'password') {
+            inputElement.type = 'text';
+            iconElement.classList.remove('fa-eye-slash');
+            iconElement.classList.add('fa-eye');
+        } else {
+            inputElement.type = 'password';
+            iconElement.classList.remove('fa-eye');
+            iconElement.classList.add('fa-eye-slash');
+        }
+    };
+
     // ======== EVENT LISTENERS ========
     
     // --- Mobile Menu & Navigation Logic ---
@@ -738,13 +753,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     DOM.loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        
+        // --- CHANGE --- Added loading state logic
+        const loginButton = DOM.loginForm.querySelector('button');
+        loginButton.disabled = true;
+        loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+
         try {
             const data = await api.login(DOM.loginEmailInput.value, DOM.loginPasswordInput.value);
             handleSuccessfulAuth(data);
             showToast('Login successful!', 'success');
         } catch (error) {
             showToast(error.message, 'error');
+        } finally {
+            // This 'finally' block ensures the button is always reset,
+            // whether the login succeeds or fails.
+            loginButton.disabled = false;
+            loginButton.innerHTML = 'Login';
         }
+    });
+
+    DOM.toggleLoginPassword.addEventListener('click', () => {
+        togglePasswordVisibility(DOM.loginPasswordInput, DOM.toggleLoginPassword);
+    });
+
+    DOM.toggleRegisterPassword.addEventListener('click', () => {
+        togglePasswordVisibility(DOM.registerPasswordInput, DOM.toggleRegisterPassword);
     });
 
     DOM.registerForm.addEventListener('submit', async (e) => {

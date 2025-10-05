@@ -688,3 +688,108 @@ button:disabled {
     .add-video-form { flex-direction: column; }
     .modal-content { padding: 1.5rem; }
 }
+
+/* ... (all previous styles remain the same) ... */
+
+/* Button Styles */
+.btn-primary, .btn-secondary, .btn-download { /* --- CHANGE --- Added .btn-download to the group */
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center; /* Ensures text is centered */
+    display: inline-block; /* For <a> tags to behave like buttons */
+    text-decoration: none; /* Removes underline from <a> tags */
+}
+
+/* ... (btn-primary styles are unchanged) ... */
+
+.btn-secondary {
+    background-color: var(--surface-color);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+.btn-secondary:hover {
+    background-color: var(--border-color);
+}
+
+/* --- CHANGE --- Added new styles for the download button --- */
+.btn-download {
+    background-color: #3ddc84; /* A color similar to the Google Play Store green */
+    color: #fff;
+    margin-top: 1rem; /* Spacing for the modal button */
+}
+
+.btn-download:hover {
+    background-color: #30b06a;
+    transform: translateY(-2px);
+}
+
+/* Specific style for the sidebar download button */
+#download-app-link-sidebar {
+    margin: 1rem 0; /* Gives it vertical spacing in the sidebar */
+}
+
+/* ... (all previous styles remain the same) ... */
+
+/* Form Styles */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* --- CHANGE --- Added styles for the password wrapper and toggle icon --- */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.password-wrapper .toggle-password:hover {
+    color: var(--primary-color);
+}
+/* --- End of password icon styles --- */
+
+.modal-content input[type="email"],
+.modal-content input[type="password"], /* --- CHANGE --- Applied this to the input itself, not the wrapper */
+.modal-content input[type="text"],
+.modal-content input[type="url"],
+.modal-content input[type="number"],
+.modal-content input[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+/* ... (button styles are unchanged) ... */
+
+.btn-primary:hover {
+    background-color: #e6b800;
+}
+
+/* --- CHANGE --- Added a style for the disabled/loading state of the button --- */
+.btn-primary:disabled {
+    background-color: #bfa000; /* A duller version of the primary color */
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* ... (rest of the file remains unchanged) ... */
